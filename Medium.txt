@@ -1,0 +1,99 @@
+Medium 
+Q2:
+Given an integer array of size n,find all elements that appear more than n/3 times.
+
+CODE:
+-------
+#include <iostream>
+#include <unordered_map>
+
+using namespace std;
+
+vector<int> findMajority(int arr[], int n) {
+  
+  unordered_map<int, int> map;
+
+  
+  for (int i = 0; i < n; i++) {
+    if (map.find(arr[i]) != map.end()) {
+      map[arr[i]]++;
+    } else {
+      map[arr[i]] = 1;
+    }
+  }
+
+  
+  vector<int> majorityElements;
+
+  for (auto it = map.begin(); it != map.end(); ++it) {
+    if (it->second > n / 3) {
+      majorityElements.push_back(it->first);
+    }
+  }
+
+  return majorityElements;
+}
+
+int main() {
+  int n;
+  cin >> n;
+  int arr[n];
+
+  for (int i = 0; i < n; i++) {
+    cin >> arr[i];
+  }
+
+  vector<int> majorityElements = findMajority(arr, n);
+
+  if (majorityElements.empty()) {
+    cout << "No majority element found." << endl;
+  } else {
+    cout << "Majority elements: ";
+    for (int element : majorityElements) {
+      cout << element << " ";
+    }
+    cout << endl;
+  }
+
+  return 0;
+}
+
+
+ALGORITHM:
+--------
+Algorithm for Finding Elements Appearing More Than n/3 Times
+Step 1. Initialization:
+Create an empty unordered_map to store element frequencies.
+Initialize an empty vector to store the potential majority elements.
+
+Step 2. Looping:
+Iterate through the given array using a loop.
+For each element in the array:
+Check if the element exists as a key in the map:
+If yes, increment its associated frequency value.
+If no, add the element as a key and set its frequency to 1.
+
+Step 3. Checking for Majority:
+Iterate through the map entries.
+For each entry:
+Check if the frequency value is greater than n/3.
+If yes, it signifies a potential majority element.
+Add this element to the majorityElements vector.
+
+Step 4. Output:
+Check if the majorityElements vector is empty:
+If empty, it means no elements appear more than n/3 times.
+Print a message indicating the absence of majority elements.
+Otherwise, print a message indicating "Majority elements" followed by each element in the majorityElements vector separated by spaces.
+
+Specific Algorithm:
+This code utilizes a hash table for efficient frequency tracking and a separate vector to store identified majority elements.
+It checks for elements appearing more than n/3 times by comparing their frequencies with the threshold.
+
+LOGIC:
+-------
+
+This code iterates through the array, storing element frequencies in a hash table. If an element's frequency exceeds n/3, it's considered a potential majority element and added to a vector. 
+Finally, if any elements are in the vector, it lists them as the majority elements. Otherwise, it indicates their absence.
+
+Time Complexity: O(n)

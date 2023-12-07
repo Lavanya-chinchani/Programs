@@ -1,0 +1,159 @@
+Easy 
+Q1:
+Given a string S consisting of words and spaces ,return the length of the last word in the string.
+
+CODE:
+------------
+#include <bits/stdc++.h>
+using namespace std;
+int lengthOfLastWord(string s)
+{
+    int output = 0;
+    for (int i = 0; i < s.size(); i++)
+    {
+        if (s[i] != ' ')
+        {
+            int currentLength = 0;
+            while (i < s.size() && s[i] != ' ')
+            {
+                currentLength++;
+                i++;
+            }
+            output = currentLength;
+        }
+    }
+    return output;
+}
+int main()
+{
+    string s;
+    getline(cin, s);
+    int length = lengthOfLastWord(s);
+    cout << length << endl;
+    return 0;
+}
+
+ALGORITHM:
+------------------
+Step 1:Initialize variables: 
+Declare an integer variable output to store the length of the last word and initialize it to 0.
+
+Step 2:Iterate over characters: 
+Loop through each character in the string s using a for loop.
+
+Step 3:Check for non-whitespace character: 
+If the current character is not a whitespace character (space), enter the inner loop.
+
+Step 4:Increment current length: 
+Inside the inner loop, initialize a variable currentLength to 0 and increment 
+it for each non-whitespace character encountered.
+
+Step 5:Continue until whitespace or end: 
+The inner loop continues iterating as long as the 
+current character is not a whitespace character and the index is within the string bounds.
+
+Step 6:Update output: 
+Once the inner loop exits, either due to encountering a whitespace or reaching the string's end,
+update the output with the value of the currentLength. This ensures we capture the length of the last word encountered.
+
+Step 7:Return final length: 
+After iterating through all characters, the output variable holds the length of the last word. 
+This value is then returned as the final result.
+
+
+LOGIC:
+---------
+The code iterates through the string, ignoring whitespace characters. Within each non-whitespace segment, it counts the characters until reaching another whitespace or the string's end. 
+The final count for the last segment is stored as the length of the last word and returned. 
+This effectively finds the length of the last word without explicitly identifying it.
+
+Time Complexity: O(n)
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q3:
+Given an integer numRows ,return the first numRows of Pascal's triangle.
+
+CODE:
+----------
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<vector<int>> generatePascalsTriangle(int numRows) {
+    vector<vector<int>> result;
+
+    for (int i = 0; i < numRows; ++i) {
+        vector<int> row(i + 1, 1); 
+        for (int j = 1; j < i; ++j) {
+           
+            row[j] = result[i - 1][j - 1] + result[i - 1][j];
+        }
+        result.push_back(row);
+    }
+
+    return result;
+}
+
+int main() {
+    int numRows ;
+    cin>>numRows;
+    vector<vector<int>> result = generatePascalsTriangle(numRows);
+
+    
+    cout << "[";
+    for (int i = 0; i < result.size(); ++i) {
+        cout << "[";
+        for (int j = 0; j < result[i].size(); ++j) {
+            cout << result[i][j];
+            if (j < result[i].size() - 1) {
+                cout << ",";
+            }
+        }
+        cout << "]";
+        if (i < result.size() - 1) {
+            cout << ",";
+        }
+    }
+    cout << "]";
+
+    return 0;
+}
+
+ALGORITHM:
+--------------
+This code utilizes a dynamic programming approach to efficiently generate Pascal's Triangle. Here's the breakdown:
+
+Step 1. Initialization:
+An empty vector (result) stores the final triangle.
+
+Step 2. Row by row construction:
+Loop through the desired number of rows (numRows).
+
+Step 3. Initializing each row:
+Create a new row (row) with i+1 elements (i being the current row number).
+Initialize all elements in row to 1, representing the edge values in the triangle.
+
+Step 4. Filling the inner elements:
+Loop through the inner elements of row (skipping the first and last 1s).
+For each element row[j], calculate its value by adding the corresponding elements 
+from the previous row (result[i-1][j-1] and result[i-1][j]). This leverages the definition of Pascal's Triangle 
+where each element is the sum of the two above it.
+
+Step 5. Adding the completed row:
+Push the completed row to the result vector.
+
+Overall, this is a dynamic programming algorithm that elegantly captures the recursive nature of Pascal's Triangle,
+making it efficient for generating large triangles.
+
+LOGIC:
+----------
+
+This code builds Pascal's Triangle by starting with a row of 1s and then iteratively creating each subsequent row by adding the values above it.
+It's like building a pyramid one layer at a time, using the previous layer's bricks to calculate the next.
+
+Time Complexity :O(n^2)
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+

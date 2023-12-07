@@ -1,0 +1,140 @@
+Hard 
+
+Q2:
+You are given a string s.You can convert s to a palindrome by adding characters in front of it. 
+Return the shortest palindrome you can find by performing this transformation.
+
+CODE:
+------
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Solution {
+public:
+    string shortestPalindrome(string s) {
+        int n = s.length();
+        int i = 0;
+        for (int j = n - 1; j >= 0; j--) {
+            if (s[i] == s[j]) i++;
+        }
+        if (i == n) return s;
+        string rem = s.substr(i);
+        reverse(rem.begin(), rem.end());
+        return rem + shortestPalindrome(s.substr(0, i)) + s.substr(i);
+    }
+};
+
+int main() {
+    Solution solution;
+
+    
+    string test1;
+    cin>>test1;
+    string result1 = solution.shortestPalindrome(test1);
+    cout << result1<<endl; 
+    return 0;
+}
+
+ALGORITHM:
+-----------
+This code implements the Manacher's Algorithm with a slight modification to find the shortest palindrome that can be made by adding characters to the beginning of the string.
+Here's a breakdown of the steps:
+
+Step 1. Initialization:
+Define a variable n to store the length of the string s.
+Initialize another variable i to 0, which will track the length of the longest prefix-suffix palindrome found so far.
+
+Step 2. Looping:
+Loop backwards through the string (from n-1 to 0) using a variable j.
+Inside the loop, check if the character at index i is equal to the character at index j.
+If yes, increment both i and j. This increases the length of the potential prefix-suffix palindrome.
+If no, it means the current substring is not a palindrome.
+
+Step 3. Checking for Existing Palindrome:
+After the loop finishes, check if i is equal to n. This signifies that the entire string is already a palindrome, and no further processing is needed.
+If not, it means a palindrome needs to be built by adding characters to the beginning.
+
+Step 4. Building the Shortest Palindrome:
+Extract the remaining string from index i till the end using s.substr(i).
+Reverse this remaining substring using reverse(rem.begin(), rem.end()).
+Recursively call the shortestPalindrome function on the substring from the beginning of the string to index i using shortestPalindrome(s.substr(0, i)).
+Combine the reversed remaining string, the result of the recursive call, and the remaining string again to form the shortest palindrome.
+
+
+Specific Algorithm:
+
+While the core logic uses Manacher's Algorithm for finding palindromes, 
+the modification to return the shortest palindrome makes it a unique algorithm.
+It combines the prefix-suffix palindrome information with recursion to build the shortest palindrome by adding characters to the beginning.
+
+
+LOGIC:
+-------
+
+This code implements a modified Manacher's Algorithm to find the shortest palindrome that can be made by adding characters to the beginning of a string.
+It iterates backwards, checking for longest prefix-suffix palindromes. If the entire string isn't a palindrome, it extracts the remaining substring, reverses it, 
+and recursively finds the shortest palindrome for the prefix. Finally, it combines the reversed substring, the recursively built palindrome,
+and the remaining string to form the shortest possible palindrome.
+
+Time Complexity:O(n^2)
+____________________________________________________________________________________________________________________________________________________________________
+
+Q3:
+Given an integer n,count the total number of digit 1 appearing in all non-negative integers less than or equal to n.
+
+CODE:
+----------
+#include <bits/stdc++.h>
+using namespace std;
+int countDigitOne(int n)
+{
+	int countr = 0;
+	for (int i = 1; i <= n; i++) {
+		string str = to_string(i);
+		countr += count(str.begin(), str.end(), '1');
+	}
+	return countr;
+}
+
+// driver function
+int main()
+{
+	int n ;
+        cin>>n;
+	cout << countDigitOne(n) << endl;
+	return 0;
+}
+
+ALGORITHM:
+----------
+
+Step 1 Initialize counter:
+ Initialize a variable countr to store the total number of digit '1' encountered.
+
+Step 2 Iterate over numbers: 
+Loop through all numbers from 1 to the given number n.
+
+Step 3 Convert to string:
+For each number i, convert it to a string using to_string(i).
+
+Step 4 Count '1's: 
+Use the count function with str.begin() and str.end() as iterators and '1' as the target character. 
+This returns the number of occurrences of '1' in the string representation of i.
+
+Step 5 Increment counter: 
+Add the number of occurrences of '1' to the total counter countr.
+
+Step 6 Output:
+After iterating through all numbers from 1 to n, 
+return the value of countr which represents the total number of digit '1' encountered.
+
+LOGIC:
+----------
+
+The code iterates through all numbers from 1 to the input number, converting each to a string and counting the occurrences of digit '1'.
+It then accumulates these occurrences in a single variable,
+returning the final count as the total number of digit '1' within the specified range.
+
+Time Complexity:O(n log n)
